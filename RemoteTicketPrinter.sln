@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteTicketPrinter", "RemoteTicketPrinter\RemoteTicketPrinter\RemoteTicketPrinter.csproj", "{18E3A00A-BE0A-4FB1-A922-3592E62533B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteTicketPrinter.Gtk", "RemoteTicketPrinter\RemoteTicketPrinter.Gtk\RemoteTicketPrinter.Gtk.csproj", "{8C9C4FD8-0522-4BB9-A6D6-0B5710FE1256}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteTicketPrinter.Mac", "RemoteTicketPrinter\RemoteTicketPrinter.Mac\RemoteTicketPrinter.Mac.csproj", "{2E8C33BA-A9DD-4A1B-90CF-169453ACDC20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteTicketPrinter.Wpf", "RemoteTicketPrinter\RemoteTicketPrinter.Wpf\RemoteTicketPrinter.Wpf.csproj", "{EEAE4500-8C22-4EC5-A866-39A151980C37}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{18E3A00A-BE0A-4FB1-A922-3592E62533B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18E3A00A-BE0A-4FB1-A922-3592E62533B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18E3A00A-BE0A-4FB1-A922-3592E62533B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18E3A00A-BE0A-4FB1-A922-3592E62533B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C9C4FD8-0522-4BB9-A6D6-0B5710FE1256}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C9C4FD8-0522-4BB9-A6D6-0B5710FE1256}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C9C4FD8-0522-4BB9-A6D6-0B5710FE1256}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C9C4FD8-0522-4BB9-A6D6-0B5710FE1256}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E8C33BA-A9DD-4A1B-90CF-169453ACDC20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E8C33BA-A9DD-4A1B-90CF-169453ACDC20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E8C33BA-A9DD-4A1B-90CF-169453ACDC20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E8C33BA-A9DD-4A1B-90CF-169453ACDC20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEAE4500-8C22-4EC5-A866-39A151980C37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEAE4500-8C22-4EC5-A866-39A151980C37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEAE4500-8C22-4EC5-A866-39A151980C37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEAE4500-8C22-4EC5-A866-39A151980C37}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {49E09370-F9F6-4CF3-A089-B0A446E3ECAA}
+	EndGlobalSection
+EndGlobal

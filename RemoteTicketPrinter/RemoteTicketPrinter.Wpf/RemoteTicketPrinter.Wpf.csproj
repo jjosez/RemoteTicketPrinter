@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
+    <AssemblyName>RemoteTicketPrinter.Wpf</AssemblyName>
+    <RootNamespace>RemoteTicketPrinter.Wpf</RootNamespace>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <StartupObject></StartupObject>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\RemoteTicketPrinter\RemoteTicketPrinter.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Eto.Platform.Wpf" Version="2.5.0" />
+  </ItemGroup>
+
+</Project>
