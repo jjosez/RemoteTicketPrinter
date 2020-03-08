@@ -95,7 +95,7 @@ namespace RemoteTicketPrinter
             // Loop here to begin processing of new requests.
             while (httpListener.IsListening)
             {
-                StatusUpdater("Server runing...");
+                StatusUpdater("Servidor iniciado.");
 
                 httpListener.BeginGetContext(new AsyncCallback(ListenerCallback), httpListener);
                 listenForNextRequest.WaitOne();
@@ -144,6 +144,7 @@ namespace RemoteTicketPrinter
             if (response.IsSuccessful)
             {
                 ticket = response.Data.text;
+                Console.WriteLine("Imprimiendo ticket...");
                 Print(ticket);
                 context.Response.StatusCode = 200;
                 context.Response.StatusDescription = "OK";
@@ -174,7 +175,7 @@ namespace RemoteTicketPrinter
             }
             else
             {
-                Console.WriteLine("La respuesta esta vacia");
+                Console.WriteLine("La respuesta esta vacia.");
             }
         }
 

@@ -3,6 +3,7 @@ using Eto.Forms;
 using Eto.Drawing;
 using nucs.JsonSettings;
 using System.Drawing.Printing;
+using ESC_POS_USB_NET.Printer;
 
 namespace RemoteTicketPrinter
 {
@@ -32,7 +33,7 @@ namespace RemoteTicketPrinter
 			LoadInstalledPrinters(printersDropdown);
 
 			Button saveButton;
-
+			Button testButton;
 			Content = new TableLayout
 			{
 				Spacing = new Size(10, 10), // space between each cell
@@ -82,12 +83,25 @@ namespace RemoteTicketPrinter
 						}
 					),
 					new TableRow(
-						saveButton = new Button { Text = "Save"}
+						saveButton = new Button { Text = "Save"}						
+					),
+					new TableRow(
+						testButton = new Button { Text = "Test"}
 					)
 				}
 			};
 
 			saveButton.Click += SaveButton_Click;
+			testButton.Click += TestButton_Click;
+		}
+
+		private void TestButton_Click(object sender, EventArgs e)
+		{
+			Printer ticketPrinter = new Printer(Settings["printer"] as String);
+
+			byte[] bytes = System.Text.Encoding.Unicode.GetBytes("Prueba de impresion");
+			ticketPrinter.Append(bytes);
+			ticketPrinter.PrintDocument();
 		}
 
 		private void SaveButton_Click(object sender, EventArgs e)
@@ -142,7 +156,7 @@ namespace RemoteTicketPrinter
         {
             PrintServer printserver = new PrintServer(UpdateStatus)
             {
-                Prefix = "http://localhost:10080/"
+                Prefix = "http://127.0.0.1:10080/"
             };
 
             printserver.Start();
