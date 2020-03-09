@@ -12,14 +12,15 @@ namespace RemoteTicketPrinter.PrintUtils
         {
             File.WriteAllText("ticket.txt", String);
 
-            var args = string.Format("lpr -P { 0} { 1}", PrinterName, "ticket.txt");
+            var args = string.Format("lpr -P {0} {1}", PrinterName, "ticket.txt");
 
             var process = new Process()
             {
                 StartInfo = new ProcessStartInfo
                 {
                     FileName = "/bin/bash",
-                    Arguments = $"-c \"{args}\"",
+                    //Arguments = $"-c \"{args}\"",
+                    Arguments = "-c \" " + args + " \"",
                     RedirectStandardOutput = true,
                     UseShellExecute = false,
                     CreateNoWindow = true,
@@ -27,7 +28,8 @@ namespace RemoteTicketPrinter.PrintUtils
             };
             process.Start();
             string result = process.StandardOutput.ReadToEnd();
-            process.WaitForExit();
+            process.WaitForExit();            
+
             return result;
         }
     }
