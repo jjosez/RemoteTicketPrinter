@@ -22,7 +22,9 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using nucs.JsonSettings;
-using ESC_POS_USB_NET.Printer;
+using ESCPOS_NET;
+using ESCPOS_NET.Emitters;
+using ESCPOS_NET.Utilities;
 
 namespace RemoteTicketPrinter
 {
@@ -179,13 +181,22 @@ namespace RemoteTicketPrinter
             }
         }
 
-        private static void SendToPrinter(string printer, string text)
-        {            
-            Printer ticketPrinter = new Printer(printer);
+        private static void SendToPrinter(string printerName, string text)
+        {
+            BasePrinter printer;
+            ICommandEmitter e;
 
-            byte[] bytes = System.Text.Encoding.Unicode.GetBytes(text);
-            ticketPrinter.Append(bytes);            
-            ticketPrinter.PrintDocument();
+            string ip = "192.168.1.1";
+            int port = 9100;
+
+            //printer = new FilePrinter("test.txt");
+            printer = new NetworkPrinter(ip, port, false);
+            e = new EPSON();
+
+            //byte[] bytes = System.Text.Encoding.Unicode.GetBytes(text);
+
+            printer.Write(ByteSplicer.Combine(e.Print(text)));
+            printer.Dispose();
         }
     }
 }
