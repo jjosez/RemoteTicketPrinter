@@ -17,14 +17,10 @@
  */
 using RestSharp;
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Text;
 using System.Threading;
 using nucs.JsonSettings;
-using ESCPOS_NET;
-using ESCPOS_NET.Emitters;
-using ESCPOS_NET.Utilities;
 
 namespace RemoteTicketPrinter
 {
@@ -36,8 +32,7 @@ namespace RemoteTicketPrinter
 
         public string Prefix { get; set; }
         public bool IsRunning { get; private set; }
-        public static string openCommand;
-        public static string cutCommand;
+
 
         //Delegate of type Action<string>
         private static Action<string> StatusUpdater;
@@ -45,25 +40,7 @@ namespace RemoteTicketPrinter
         public PrintServer(Action<string> UpdateStatusDelegate)
         {
             httpListener = new HttpListener();
-            StatusUpdater = UpdateStatusDelegate;
-
-            string command = Settings.Get("cutcommand", "27.105");
-            foreach (var c in command.Split('.'))
-            {
-                int unicode = Convert.ToInt32(c);
-                char character = (char)unicode;
-
-                cutCommand += character.ToString();
-            }
-
-            command = Settings.Get("opencommand", "27.112.48");
-            foreach (var c in command.Split('.'))
-            {
-                int unicode = Convert.ToInt32(c);
-                char character = (char)unicode;
-
-                openCommand += character.ToString();
-            }            
+            StatusUpdater = UpdateStatusDelegate;                   
         }
 
         public void Start()
@@ -146,13 +123,10 @@ namespace RemoteTicketPrinter
             if (response.IsSuccessful)
             {
                 ticket = response.Data.text;
-                Console.WriteLine("Imprimiendo ticket...");
                 Print(ticket);
                 context.Response.StatusCode = 200;
                 context.Response.StatusDescription = "OK";
-            }
-
-            Console.WriteLine(ticket);
+            }            
 
             // Response
             context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
@@ -161,42 +135,17 @@ namespace RemoteTicketPrinter
             context.Response.Close();
         }
 
-        private static void Print(string data)
+        private static void Print(string ticket)
         {
-            string printerName = Settings.Get("printer", "");
-
-            StringBuilder builder = new StringBuilder(data);
-            builder.Replace("[[cut]]", cutCommand);
-            builder.Replace("[[opendrawer]]", openCommand);
-
-            data = builder.ToString();
-
-            if (!string.IsNullOrEmpty(data))
+            if (!string.IsNullOrEmpty(ticket))
             {
-                SendToPrinter(printerName, data);
+                PrintController printer = new PrintController();
+                printer.Print(ticket);
             }
             else
             {
                 Console.WriteLine("La respuesta esta vacia.");
             }
-        }
-
-        private static void SendToPrinter(string printerName, string text)
-        {
-            BasePrinter printer;
-            ICommandEmitter e;
-
-            string ip = "192.168.1.1";
-            int port = 9100;
-
-            //printer = new FilePrinter("test.txt");
-            printer = new NetworkPrinter(ip, port, false);
-            e = new EPSON();
-
-            //byte[] bytes = System.Text.Encoding.Unicode.GetBytes(text);
-
-            printer.Write(ByteSplicer.Combine(e.Print(text)));
-            printer.Dispose();
         }
     }
 }
