@@ -2,9 +2,6 @@ using System;
 using Eto.Forms;
 using Eto.Drawing;
 using nucs.JsonSettings;
-using System.Net.Sockets;
-using ESCPOS_NET;
-using ESCPOS_NET.Emitters;
 using System.Drawing.Printing;
 
 namespace RemoteTicketPrinter
@@ -35,7 +32,6 @@ namespace RemoteTicketPrinter
 			LoadInstalledPrinters(printersDropdown);
 
 			Button saveButton;
-			Button testButton;
 			Content = new TableLayout
 			{
 				Spacing = new Size(10, 10), // space between each cell
@@ -66,7 +62,6 @@ namespace RemoteTicketPrinter
 							Orientation = Orientation.Horizontal,
 							Spacing = 10,
 							Size = new Size(-1, -1),
-							//BackgroundColor = new Color(28, 70, 215),
 							Items =
 							{
 								new StackLayoutItem { 
@@ -86,51 +81,11 @@ namespace RemoteTicketPrinter
 					),
 					new TableRow(
 						saveButton = new Button { Text = "Save"}						
-					),
-					new TableRow(
-						testButton = new Button { Text = "Test"}
 					)
 				}
 			};
 
 			saveButton.Click += SaveButton_Click;
-			testButton.Click += TestButton_Click;
-		}
-
-		private void TestButton_Click(object sender, EventArgs e)
-		{
-			NetworkStream ns = null;
-			Socket socket = null;
-
-			//try
-			//{
-			//	IPEndPoint printerIP = null;
-			//	if (printerIP == null)
-			//	{
-			//		/* IP is a string property for the printer's IP address. */
-			//		/* 6101 is the common port of all our Zebra printers. */
-			//		printerIP = new IPEndPoint(IPAddress.Parse("192.168.1.1"), 9100);
-			//	}
-
-			//	socket = new Socket(AddressFamily.InterNetwork,
-			//		SocketType.Stream,
-			//		ProtocolType.Tcp);
-			//	socket.Connect(printerIP);
-
-			//	ns = new NetworkStream(socket);
-
-			//	byte[] toSend = Encoding.Unicode.GetBytes("Prueba de impresion");
-			//	ns.Write(toSend, 0, toSend.Length);
-			//}
-			//finally
-			//{
-			//	if (ns != null)
-			//		ns.Close();
-
-			//	if (socket != null && socket.Connected)
-			//		socket.Close();
-			//}
-			NewPrintMethod();
 		}
 
 		private void SaveButton_Click(object sender, EventArgs e)
@@ -195,25 +150,5 @@ namespace RemoteTicketPrinter
         {
 
         }
-
-		private void NewPrintMethod()
-		{
-			PrinterSettings ps = new PrinterSettings();
-			ps.PrinterName = Settings["printer"] as String;
-			Console.WriteLine(ps);
-
-			BasePrinter printer;
-			ICommandEmitter e;
-
-			string ip = "192.168.1.1";
-			int port = 9100;
-
-			printer = new FilePrinter("test.txt");
-			e = new EPSON();
-
-			byte[] bytes = System.Text.Encoding.Unicode.GetBytes("Prueba de impresion");
-			printer.Write(bytes);
-			printer.Dispose();
-		}
     }
 }
